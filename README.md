@@ -2,6 +2,19 @@
 A sequence-based deep learning framework for predicting protein stability changes upon point mutations using pretrained protein language model
 
 
+
+## Table of Contents
+
+- [THPLM](#thplm)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+    - [Dependencies:](#dependencies)
+    - [Computing environment:](#computing-environment)
+  - [Usage](#usage)
+    - [For prediction](#for-prediction)
+    - [Training your own model](#training-your-own-model)
+  - [Citation](#citation)
+
 ## Installation
 
 ### Dependencies:
