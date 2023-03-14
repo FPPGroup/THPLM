@@ -8,8 +8,8 @@ A sequence-based deep learning framework for predicting protein stability change
 - [THPLM](#thplm)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
-    - [Dependencies:](#dependencies)
-    - [Computing environment:](#computing-environment)
+    - [Dependencies](#dependencies)
+    - [Computing environment](#computing-environment)
   - [Usage](#usage)
     - [For prediction](#for-prediction)
     - [Training your own model](#training-your-own-model)
@@ -17,10 +17,10 @@ A sequence-based deep learning framework for predicting protein stability change
 
 ## Installation
 
-### Dependencies:
+### Dependencies
 
 
-### Computing environment:
+### Computing environment
 
 If the dependencies are satified, you can install the THPLM using following commands:
 
