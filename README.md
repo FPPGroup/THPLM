@@ -1,7 +1,5 @@
 # THPLM
-A sequence-based deep learning framework for predicting protein stability changes upon point mutations using pretrained protein language model
-
-
+A sequence-based deep learning framework to predict protein stability changes upon point mutations using pretrained protein language model
 
 ## Table of Contents
 
@@ -9,13 +7,11 @@ A sequence-based deep learning framework for predicting protein stability change
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
     - [Dependencies](#dependencies)
-    - [ESM pretrain model download](#ESM pretrain model download)
+    - [ESM pretrain model download](#ESM-pretrain-model-download)
     - [Installation](#Installation)
   - [Usage](#usage)
     - [For prediction](#for-prediction)
-    - [Training your own model](#training-your-own-model)
-  - [Docker](#Docker)
-  - [Webserver and tutorial](#Webserver)
+    - [Running](#Running)
   - [Citation](#citation)
 
 ## Installation
@@ -63,13 +59,10 @@ positional arguments:
                         <wildtype><position><mutation> (see README for models)
   fasta_file            FASTA file on which to extract representations
   output_dir            output directory for extracted representations
-  variants_fasta_dir    FASTA file stored to get representations
+  variants_fasta_dir    FASTA file was used to store variant and wildtype protein
 
 optional arguments:
   -h, --help            show this help message and exit
-  --model_location MODEL_LOCATION
-                        PyTorch model file OR name of pretrained model to
-                        download (see README for models)
   --gpunumber GPUNUMBER
                         GPU number for use
   --toks_per_batch TOKS_PER_BATCH
@@ -81,18 +74,54 @@ optional arguments:
                         the path of python bin
 ```
 
-### Training your own model
+THPLM input format:
+```bash
+  variants_file:
+      A file like "./examples/var.txt", in every line contain one variant formated by <wildtype><position><mutation>. 
+      <wildtype><position><mutation> defines the mutations which are to be predicted for the protein sequence, which stands for wild-type amino acid, mutation position in sequence, and mutated amino acid.
+      for example:
+    
+        D3H
+        E17A
+  
+  fasta_file:
+      fasta_file defines the target protein sequence in a one-letter code, containing sequence ID and sequence. It is better to use Uniprot ID or PDB ID added chain ID for the ID.
+      for example:
+      
+        >1A7VA
+        QTDVIAQRKAILKQMGEATKPIAAMLKGEAKFDQAVVQKSLAAIADDSKKLPALFPADSKTGGDTAALPKIWEDKAKFDDLFAKLAAAATAAQGTIKDEASLKANIGGVLGNCKSCHDDFRAKKS
+  
+  variants_fasta_dir:
+      FASTA file was used to store variant and wildtype protein.
+      for example:
+      
+        >1A7VA
+        QTDVIAQRKAILKQMGEATKPIAAMLKG....
+        >1A7VA_D3H
+        QTHVIAQRKAILKQMGEATKPIAAMLKG...
+        >1A7VA_E17A
+        QTDVIAQRKAILKQMGAATKPIAAMLKGEAKF...
+            
+  output_dir:
+      output directory for extracted representations from ESM-2
+```
+THPLM output format:
 
-To train your own model, you need to build your fasta file firstly. And then you can use the 
+```bash
+Output a dict contained variants' ID and DDGs. The variants ID was constructed by sequence ID from "fasta_file" and variants <wildtype><position><mutation>.
+  for example:
+    {'1A7VA_D3H': -0.28042653, '1A7VA_E17A': -0.2851434}
+```
+### Running
+
+This is the example
 
 ```bash
 
 python THPLM_predict.py ./examples/var.txt ./examples/wild.fasta ./examples/esm3Bout/ ./examples/varlist.fasta --gpunumber 0 --extractfile ./esmscripts/extract.py
 
 ```
-## Docker
-
-## Webserver and tutorial
+You can to build your fasta file firstly and change to your directory.
 
 ## Citation
 

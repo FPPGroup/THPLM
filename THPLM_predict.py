@@ -10,6 +10,7 @@ from esm import Alphabet, FastaBatchedDataset, ProteinBertModel, pretrained, MSA
 
 
 def create_parser():
+    script_dir = os.path.split(os.path.realpath(__file__))[0]
     parser = argparse.ArgumentParser(
         description="Extract mean representations and model outputs for sequences in a FASTA file and to predict DDGs"  # noqa
     )
@@ -17,31 +18,31 @@ def create_parser():
     parser.add_argument(
         "variants_file",
         type=pathlib.Path,
-        default='./examples/var.txt',
+        default='%s/examples/var.txt'%script_dir,
         help="files inclusing variants, format is <wildtype><position><mutation> (see README for models)",
     )
-    parser.add_argument(
-        "--model_location",
-        type=str,
-        help="PyTorch model file OR name of pretrained model to download (see README for models)",
-    )
+    # parser.add_argument(
+    #     "--model_location",
+    #     type=str,
+    #     help="PyTorch model file OR name of pretrained model to download ",
+    # )
     parser.add_argument(
         "fasta_file",
         type=pathlib.Path,
-        default='./examples/wild.fasta',
+        default='%s/examples/wild.fasta'%script_dir,
         help="FASTA file on which to extract representations",
     )
     parser.add_argument(
         "output_dir",
         type=pathlib.Path,
-        default="./examples/esm3Bout/",
+        default="%s/examples/esm3Bout/"%script_dir,
         help="output directory for extracted representations",
     )
     parser.add_argument(
         "variants_fasta_dir",
         type=pathlib.Path,
-        default='./examples/varlist.fasta',
-        help="FASTA file stored to get representations",
+        default='%s/examples/varlist.fasta'%script_dir,
+        help="FASTA file was used to store variant and wildtype protein",
     )
     parser.add_argument(
         "--gpunumber",
@@ -50,8 +51,8 @@ def create_parser():
         help="GPU number for use",
     )
     parser.add_argument("--toks_per_batch", type=int, default=4096, help="maximum batch size")
-    parser.add_argument("--THPLM", type=pathlib.Path, default="./Model/S4596_1832_2CNN.pt", help="maximum batch size")
-    parser.add_argument("--extractfile", type=pathlib.Path, default='./esmscripts/extract.py', help="the path of extract.py file from esm-2")
+    parser.add_argument("--THPLM", type=pathlib.Path, default="%s/Model/THPLM.pt"%script_dir, help="maximum batch size")
+    parser.add_argument("--extractfile", type=pathlib.Path, default='%s/esmscripts/extract.py'%script_dir, help="the path of extract.py file from esm-2")
     parser.add_argument(
         "--pythonbin",
         type=str,
@@ -141,8 +142,8 @@ def parser_rep(args):
 #/public/data1/gongj/esm/scripts/extract.py
     #run esm-2
     cmd = 'CUDA_VISIBLE_DEVICES={} time {} {} esm2_t36_3B_UR50D {}  {}/ --repr_layers 36 --include mean --toks_per_batch {}'.format(args.gpunumber,args.pythonbin,args.extractfile,args.variants_fasta_dir,args.output_dir,args.toks_per_batch)
-    print(cmd)
-    #os.system(cmd)
+    #print(cmd)
+    os.system(cmd)
     ######### repe extract ############
     queryproteinrep = []
     for eachvar in varrep:
