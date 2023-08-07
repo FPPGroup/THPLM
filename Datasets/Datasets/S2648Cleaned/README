@@ -1,0 +1,20 @@
+The original S2648 dataset was checked for sequence similarity
+using: blastall -p blastp -i S2648.fasta -d S2648.fasta -m8 -e 0.01 -o S2648.All-vs-all.blast.e0.01 
+
+The blast output is: S2648.All-vs-all.blast.e0.01
+
+Then we clusterize the sequences using the connected components with edge at 25%
+The cluster is: S2648.cluster.25
+From this cluster we generated a random partition that groups the protein
+of the same cluster in the same set.
+The final five-fold sets are :
+S2648.csv_cross_valid_clean0.test.csv
+S2648.csv_cross_valid_clean0.train.csv
+S2648.csv_cross_valid_clean1.test.csv
+S2648.csv_cross_valid_clean1.train.csv
+S2648.csv_cross_valid_clean2.test.csv
+S2648.csv_cross_valid_clean2.train.csv
+S2648.csv_cross_valid_clean3.test.csv
+S2648.csv_cross_valid_clean3.train.csv
+S2648.csv_cross_valid_clean4.test.csv
+S2648.csv_cross_valid_clean4.train.csv
